@@ -1,3 +1,9 @@
+function adjustForTimezoneKostyl(date){
+    var timeOffsetInMS = date.getTimezoneOffset() * 60000;
+    date.setTime(date.getTime() + timeOffsetInMS);
+    return date
+}
+
 // converters
 
 function StrToDatetime(line) {
@@ -10,7 +16,7 @@ function StrToDatetime(line) {
 
 // also acts as TimedeltaToStr
 function DatetimeToStr(inp) {
-    let hhmm = inp.toTimeString();
+    let hhmm = adjustForTimezoneKostyl(inp).toTimeString();
 
     if (hhmm[0] === '0') {
         return (hhmm.substring(1,5))
