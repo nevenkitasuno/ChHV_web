@@ -1,4 +1,4 @@
-function adjustForTimezoneKostyl(date){
+function adjustForTimezone(date){
     var timeOffsetInMS = date.getTimezoneOffset() * 60000;
     date.setTime(date.getTime() + timeOffsetInMS);
     return date
@@ -15,8 +15,18 @@ function StrToDatetime(line) {
 }
 
 // also acts as TimedeltaToStr
-function DatetimeToStr(inp) {
-    let hhmm = adjustForTimezoneKostyl(inp).toTimeString();
+function DatetimeToStrKostyl(inp) {
+    let hhmm = adjustForTimezone(inp).toTimeString();
+
+    if (hhmm[0] === '0') {
+        return (hhmm.substring(1,5))
+    }
+
+    return (hhmm.substring(0,5))
+}
+
+function DatetimeToStr(inp) { // time_start, time_finish
+    let hhmm = inp.toTimeString();
 
     if (hhmm[0] === '0') {
         return (hhmm.substring(1,5))
@@ -85,7 +95,7 @@ function GetChHV(inp, verbose) {
             case '3': // e_LineType.halt
                 halt_per_day += GetHaltTimeMilisec(line);
                 if (verbose) {
-                    res.push(DatetimeToStr(new Date(halt_per_day)))
+                    res.push(DatetimeToStrKostyl(new Date(halt_per_day)))
                 }
                 break;
             case '5': // e_LineType.finish
@@ -97,11 +107,11 @@ function GetChHV(inp, verbose) {
                     res.push(day_line + " ЧХВ = "
                     + DatetimeToStr(time_finish)
                     + " - " + DatetimeToStr(time_start)
-                    + " - " + DatetimeToStr(halt_per_day)
-                    + " = " + DatetimeToStr(total_day_time))
+                    + " - " + DatetimeToStrKostyl(halt_per_day)
+                    + " = " + DatetimeToStrKostyl(total_day_time))
                 }
                 else {
-                    res.push(day_line + ' ЧХВ = ' + DatetimeToStr(total_day_time))}
+                    res.push(day_line + ' ЧХВ = ' + DatetimeToStrKostyl(total_day_time))}
                 break;
             default:
                 break;
