@@ -107,7 +107,7 @@ function GetChHV(inp, verbose) {
             case '4': // e_LineType.start
                 time_start = StrToDatetime(line);
                 halt_per_day = 0;
-                res.push("")
+                res.push(" ")
                 break;
             case '3': // e_LineType.halt
                 halt_per_day += GetHaltTimeMilisec(line);
@@ -132,7 +132,7 @@ function GetChHV(inp, verbose) {
                 }
                 break;
             default:
-                res.push("")
+                res.push(" ")
                 break;
         }
     }
