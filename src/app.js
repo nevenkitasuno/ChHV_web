@@ -90,7 +90,7 @@ function GetHaltTimeMilisec(line) {
 }
 
 function GetChHV(inp, verbose) {
-    let res = [], line, type, day_line, time_start, halt_per_day, time_finish, total_day_time;
+    let res = [], line, type, day_line, time_start, halt_per_day, curr_halt_time, time_finish, total_day_time;
 
     for (var i = 0; i < inp.length; i++) {
         line = inp[i]
@@ -100,7 +100,7 @@ function GetChHV(inp, verbose) {
                 // day started
                 day_line = line;
                 if (verbose) {
-                    res.push(day_line)
+                    res.push(day_line + ': 00:00')
                 }
                 break;
             // halt time count
@@ -110,9 +110,10 @@ function GetChHV(inp, verbose) {
                 if(verbose) {res.push(" ");}
                 break;
             case '3': // e_LineType.halt
-                halt_per_day += GetHaltTimeMilisec(line);
+                curr_halt_time = GetHaltTimeMilisec(line);
+                halt_per_day += curr_halt_time;
                 if (verbose) {
-                    res.push(DatetimeToStrKostyl(new Date(halt_per_day)))
+                    res.push(' + ' + DatetimeToStrKostyl(new Date(curr_halt_time)) + ' = ' + DatetimeToStrKostyl(new Date(halt_per_day)))
                 }
                 break;
             case '5': // e_LineType.finish
