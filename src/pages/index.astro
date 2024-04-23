@@ -11,22 +11,40 @@
 		<script src="../app.js"></script>
 	</head>
 	<body>
-		<h1>ЧХВ</h1>
-
+		<h1 class="linear-wipe">ЧХВ</h1>
 		<a href="/ChHV_web/readme">Инструкция</a>
-		<label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Отчёт</label>
 		<div id="wrapper">
 			<div id="left">
-				<textarea id="message" rows="10" wrap="off" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+				<textarea id="message" rows="20" wrap="off" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
 			</div>
 			<div id="right">
-				<textarea id="output" rows="10" wrap="off" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+				<textarea id="output" rows="20" wrap="off" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
 			</div>
 		</div>
 	</body>
 </html>
 
 <style>
+	h1 { font-size: 10vw; }
+	.linear-wipe {
+		text-align: center;
+  
+		background: linear-gradient(to right, #ff6f09 20%, #FF0 40%, #FF0 60%, #ff6f09 80%);
+		background-size: 200% auto;
+		
+		color: #FFF;
+		background-clip: text;
+		text-fill-color: transparent;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		
+		animation: shine 1s linear infinite;
+		@keyframes shine {
+			to {
+			background-position: 200% center;
+			}
+		}
+	}
 	#wrapper {
 		display: flex;
 	}
