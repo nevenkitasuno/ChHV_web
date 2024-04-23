@@ -107,7 +107,7 @@ function GetChHV(inp, verbose) {
             case '4': // e_LineType.start
                 time_start = StrToDatetime(line);
                 halt_per_day = 0;
-                res.push(" ")
+                if(verbose) {res.push(" ");}
                 break;
             case '3': // e_LineType.halt
                 halt_per_day += GetHaltTimeMilisec(line);
@@ -132,7 +132,7 @@ function GetChHV(inp, verbose) {
                 }
                 break;
             default:
-                res.push(" ")
+                if(verbose) {res.push(" ");}
                 break;
         }
     }
@@ -175,11 +175,45 @@ inp.value = `День 1
 Встали на ночёвку в предпологаемом месте, коша нет. +15 градусов
 Пошёл дождь`
 
+var verboseButtonClicked = true;
+
+window.addEventListener('load',function(){
+  document.getElementById('verboseButton').addEventListener('click',function(){
+    verboseButtonClicked = !verboseButtonClicked;
+    PrintChHV();
+  });
+});
+
+document.getElementById('copyButton').addEventListener('click', function (clicked) {
+    return function () {
+        copyTextToClipboard(outp.value);
+        if (!clicked) {
+            var last = this.innerHTML;
+            this.innerHTML = 'Скопировано!';
+            clicked = true;
+            setTimeout(function () {
+                this.innerHTML = last;
+                clicked = false;
+            }.bind(this), 2000);
+        }
+    };
+}(false), this);
+
+async function copyTextToClipboard(textToCopy) {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(textToCopy);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }  
+
 PrintChHV()
 
 function PrintChHV() {
     const txt = inp.value;
-    const result = GetChHV(txt.split(/\r?\n/), true);
+    const result = GetChHV(txt.split(/\r?\n/), verboseButtonClicked);
 
     outp.value = "";
     result.forEach(el => {
